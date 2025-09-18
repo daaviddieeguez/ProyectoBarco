@@ -17,18 +17,20 @@ do{
 console.log("Filas "+fila);
 console.log("Columnas "+columna);
 
-let tablero = [];
-let matriz = new Array(columna);
+let barcox = Math.floor(Math.random() * columna);
+let barcoy = Math.floor(Math.random() * fila);
 
-for (let i = 0; i < fila; i++) {
-  tablero[i] = [];
-  for (let j = 0; j < columna; j++) {
-    tablero[i][j] = 0;
-  }
-}
+console.log("El barco esta en: "+barcox+", "+barcoy);
 
-for(let i = 0; i<tablero.length; i++){
-    for(let j = 0; j<tablero[i].length; j++){
-        console.log("Fila "+ i +", Columna " + j + " = " + tablero[i][j]);
+let singanador = true;
+while(singanador){
+    let x = prompt("Introduce la columna: (0-"+columna+")");
+    let y = prompt("Introduce la fila (0-"+fila+")");
+    if(x == barcox && y == barcoy){
+        alert("Has ganado");
+    }else if(x == humox && y == humoy){
+        alert("Humo");
+    }else{
+        alert("Agua");
     }
 }
