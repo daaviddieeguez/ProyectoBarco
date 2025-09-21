@@ -21,8 +21,8 @@ let humoy = new Array(3);
 
 console.log("El barco esta en: "+barcox+", "+barcoy);
 
-let singanador = true;
-while(singanador){
+let ganador = false;
+while(!ganador){
     let x = prompt("Introduce la columna: (0-"+columna+")");
     let y = prompt("Introduce la fila (0-"+fila+")");
     let i = 0;
@@ -37,7 +37,7 @@ while(singanador){
     
     if(x == barcox && y == barcoy){
         alert("Has ganado");
-        singanador = false;
+        ganador = true;
     }else if(eshumo){
         alert("Humo. El barco paso hace "+i+" casillas");
     }else{
@@ -52,7 +52,9 @@ while(singanador){
         humoy.pop();
     }
 
-    moverse();
+    if(ganador){
+        moverse();
+    }
 }
 
 function moverse(){
