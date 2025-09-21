@@ -1,24 +1,21 @@
 let columna;
 let fila;
-do{
-    columna = prompt("¿Cuántas columnas tiene el tablero?");
-    if(columna<2){
-        alert("El tablero tiene que ser mayor o igual a 2");
-    }
-}while(columna<2);
 
-do{
-    fila = prompt("¿Cuántas filas tiene el tablero?");
-    if(fila<2){
-        alert("El tablero tiene que ser mayor o igual a 2");
-    }
-}while(fila<2);
+columna = prompt("¿Cuántas columnas tiene el tablero?");
+if(columna<2){
+    columna = 2;
+}
+
+fila = prompt("¿Cuántas filas tiene el tablero?");
+if(fila<2){
+    fila = 2;
+}
 
 console.log("Filas "+fila);
 console.log("Columnas "+columna);
 
-let barcox = Math.floor(Math.random() * columna);
-let barcoy = Math.floor(Math.random() * fila);
+let barcox = aleatorio(columna);
+let barcoy = aleatorio(fila);
 let humox = new Array(3);
 let humoy = new Array(3);
 
@@ -59,17 +56,17 @@ while(singanador){
 }
 
 function moverse(){
-    let posicion = Math.floor(Math.random() * 2);
+    let posicion = aleatorio(2);
     console.log("La posicion es: "+posicion);
     if(posicion == 1){
-        let x = Math.floor(Math.random() * 2);
+        let x = aleatorio(2);
         if(barcox != 0 && x == 0){
             barcox--;
         }else{
             barcox++;
         }
     }else{
-        let y = Math.floor(Math.random() * 2);
+        let y = aleatorio(2);
         if(barcoy != 0 && y == 0){
             barcoy--;
         }else{
@@ -77,4 +74,8 @@ function moverse(){
         }
     }
     console.log("El barco esta en: "+barcox+", "+barcoy);
+}
+
+function aleatorio(numero){
+    return Math.floor(Math.random() * numero);
 }
