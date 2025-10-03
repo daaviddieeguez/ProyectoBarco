@@ -16,8 +16,9 @@ console.log("Columnas "+columna);
 
 let barcox = aleatorio(columna);
 let barcoy = aleatorio(fila);
-let humox = new Array(3);
-let humoy = new Array(3);
+
+let humox = [null, null, null];
+let humoy = [null, null, null];
 
 console.log("El barco esta en: "+barcox+", "+barcoy);
 
@@ -52,30 +53,37 @@ while(!ganador){
         humoy.pop();
     }
 
-    if(ganador){
+    if(!ganador){
         moverse();
+        console.log("El barco esta en: "+barcox+", "+barcoy);
     }
+
+    
 }
 
 function moverse(){
-    let posicion = aleatorio(2);
-    console.log("La posicion es: "+posicion);
-    if(posicion == 1){
-        let x = aleatorio(2);
-        if(barcox != 0 && x == 0){
-            barcox--;
-        }else{
-            barcox++;
-        }
-    }else{
-        let y = aleatorio(2);
-        if(barcoy != 0 && y == 0){
-            barcoy--;
-        }else{
-            barcoy++;
-        }
+    let posibilidades = [];
+
+    if(barcox>0){
+        posibilidades.push([barcox-1, barcoy]);
     }
-    console.log("El barco esta en: "+barcox+", "+barcoy);
+
+    if(barcox<fila-1){
+        posibilidades.push([barcox+1, barcoy]);
+    }
+
+    if(barcoy>0){
+        posibilidades.push([barcox, barcoy-1]);
+    }
+
+    if(barcoy < columna - 1){
+        posibilidades.push([barcox, barcoy+1]);
+    }
+
+    let indice = aleatorio(posibilidades.length);
+
+    barcox = posibilidades[indice][0];
+    barcoy = posibilidades[indice][1];
 }
 
 function aleatorio(numero){
