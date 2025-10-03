@@ -14,76 +14,88 @@ if(fila<2){
 console.log("Filas "+fila);
 console.log("Columnas "+columna);
 
-let barcox = aleatorio(columna);
-let barcoy = aleatorio(fila);
+let barco = [aleatorio(columna), aleatorio(fila)];
 
-let humox = [null, null, null];
-let humoy = [null, null, null];
+let humo = [[], [], []];
 
-console.log("El barco esta en: "+barcox+", "+barcoy);
+console.log("El barco esta en: "+(barco[0]+1)+", "+(barco[1]+1));
 
 let ganador = false;
 while(!ganador){
-    let x = prompt("Introduce la columna: (0-"+columna+")");
-    let y = prompt("Introduce la fila (0-"+fila+")");
-    let i = 0;
+    let x = -1;
+    let y = -1;
+    
+    do{
+        x = parseInt(prompt("Introduce la columna: (1-"+columna+")")-1);
+        if(x<0 || x>columna-1){
+            alert("Número no permitido");
+        }
+    }while(x<0 || x>columna-1);
+    
+    do{
+        y = parseInt(prompt("Introduce la fila (1-"+fila+")")-1);
+
+        if(y<0 || y>fila-1){
+            alert("Número no permitido");
+        }
+    }while(y<0 || y>fila-1);
+    
+    let posHumo = 0;
+    
     let eshumo = false;
 
-
-    for(i = 0; i < humox.length && !eshumo; i++){
-        if(x == humox[i] && y == humoy[i]){
+    for(let i = 0; i < humo.length && !eshumo; i++){
+        if(x == humo[i][0] && y == humo[i][1]){
             eshumo = true;
         }
+        posHumo++;
     }
     
-    if(x == barcox && y == barcoy){
+    if(x == barco[0] && y == barco[1]){
         alert("Has ganado");
         ganador = true;
     }else if(eshumo){
-        alert("Humo. El barco paso hace "+i+" casillas");
+        alert("Humo. El barco paso hace "+posHumo+" casillas");
     }else{
         alert("Agua");
     }
 
-    humox.unshift(barcox);
-    humoy.unshift(barcoy);
+    humo.unshift([barco[0], barco[1]]);
 
-    if(humox.length>3){
-        humox.pop();
-        humoy.pop();
+    if(humo.length>3){
+        humo.pop();
     }
 
     if(!ganador){
         moverse();
-        console.log("El barco esta en: "+barcox+", "+barcoy);
-    }
 
-    
+        console.log("El barco esta en: "+(barco[0]+1)+", "+(barco[1]+1));
+    }
 }
 
 function moverse(){
     let posibilidades = [];
 
-    if(barcox>0){
-        posibilidades.push([barcox-1, barcoy]);
+    if(barco[0]>0){
+        posibilidades.push([barco[0]-1, barco[1]]);
     }
 
-    if(barcox<fila-1){
-        posibilidades.push([barcox+1, barcoy]);
+    if(barco[0]<fila-1){
+        posibilidades.push([barco[0]+1, barco[1]]);
     }
 
-    if(barcoy>0){
-        posibilidades.push([barcox, barcoy-1]);
+    if(barco[1]>0){
+        posibilidades.push([barco[0], barco[1]-1]);
     }
 
-    if(barcoy < columna - 1){
-        posibilidades.push([barcox, barcoy+1]);
+    if(barco[1] < columna - 1){
+        posibilidades.push([barco[0], barco[1]+1]);
     }
 
     let indice = aleatorio(posibilidades.length);
 
-    barcox = posibilidades[indice][0];
-    barcoy = posibilidades[indice][1];
+    barco[0] = posibilidades[indice][0];
+    barco[1] = posibilidades[indice][1];
 }
 
 function aleatorio(numero){
